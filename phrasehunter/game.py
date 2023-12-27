@@ -2,6 +2,16 @@
 import random
 from .phrase import Phrase
 
+#init 
+# get phrase (Game)
+# assign default booleans to phrase (phrase)
+#get user input (game)
+# check if it matches phrase (phrase)
+#update phrase (phrase)
+#retrigger the get user input (Game)
+
+
+
 class Game:
 
     def __init__(self):
@@ -15,6 +25,7 @@ class Game:
     
     def start(self):
         self.welcome()
+        
 
     def get_random_phrase(self):
         # Generate a random index to retrieve from the list of phrases
@@ -28,18 +39,26 @@ class Game:
         welcome_msg += "  Welcome to Phrase Hunter\n"
         welcome_msg += "==============================\n"
         print(welcome_msg)
+        # Set all booleans for initial load
+        self.active_phrase.initial_display()
         self.get_guess()
         
         
 
 
+
+
     def get_guess(self):
-        #print(self.phrase_obj)
         user_guess = input("Enter a letter to guess: ")
         if len(user_guess) >1:
             print("This guess is not valid. Please guess one character at a time.")
         else:
-            print(self.active_phrase.display(0))
+            self.guesses.append(user_guess)
+            self.active_phrase.check_complete()
+            self.active_phrase.display(user_guess)
+            self.get_guess() #Keep asking for more guesses
+
+        
 
     
 
