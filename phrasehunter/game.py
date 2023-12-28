@@ -54,9 +54,10 @@ class Game:
             print("This guess is not valid. Please guess one character at a time.")
         else:
             self.guesses.append(user_guess)
-            self.active_phrase.check_complete()
+            #self.active_phrase.check_complete(0)
             self.active_phrase.display(user_guess)
             self.get_guess() #Keep asking for more guesses
+            
 
         
 
