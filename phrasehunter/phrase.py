@@ -52,7 +52,6 @@ class Phrase:
             if guess in x:
                 x[guess] = True
                 self.correct_guess = True
-                print("fired")
         print(self.correct_guess)                    
         return phrase
     

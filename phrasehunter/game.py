@@ -56,8 +56,16 @@ class Game:
             self.guesses.append(user_guess)
             #self.active_phrase.check_complete(0)
             self.active_phrase.display(user_guess)
+            # Check the correct guess flag to see whether to increment the error counter
+            if self.active_phrase.correct_guess != True:
+                self.missed +=1
+                print(self.missed)
             self.get_guess() #Keep asking for more guesses
             
+
+        
+            
+        
 
         
 
