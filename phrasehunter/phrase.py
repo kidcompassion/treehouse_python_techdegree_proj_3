@@ -8,6 +8,7 @@ class Phrase:
         self.phrase = phrase.lower()
         self.initial_phrase = self.initial_display()
         self.correct_guess = None
+        self.winner = False
 
     def initial_display(self):
         # The first time we load the app, set up all the booleans on letters
@@ -52,13 +53,28 @@ class Phrase:
             if guess in x:
                 x[guess] = True
                 self.correct_guess = True
-        print(self.correct_guess)                    
-        return phrase
+        if self.check_complete(phrase) == True:
+            print("Winner")
+            return phrase
+        else:
+            print("non win")
+            return phrase
     
         #if all values are set to true (or none are false), the person wins
 
 
     
-    def check_complete(self, fail):
-        print(fail)
+    def check_complete(self, word):
+        chosen_characters = []
+       
+        for x in word:
+            for y,z in x.items():
+                chosen_characters.append(z)
+        
+        if False not in chosen_characters:
+            return True
+                
+           
+            # if no letters have a value of false, tell them they won by setting winner to false
+        
     

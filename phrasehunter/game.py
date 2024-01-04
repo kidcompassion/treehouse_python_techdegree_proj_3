@@ -1,5 +1,6 @@
 # Create your Game class logic in here.
 import random
+import sys
 from .phrase import Phrase
 
 #init 
@@ -11,11 +12,15 @@ from .phrase import Phrase
 #retrigger the get user input (Game)
 
 
+#handle when someone repeats the same letter
+# handle when smeone puts in a number
+# handle if someone submits an empty string
+
 
 class Game:
 
     def __init__(self):
-        self.missed = 0
+        self.missed = 5
         self.phrases = ["Ahoy matey", "Up and away", "Swab the decks", "That ship has sailed", "Batten down the hatches"]
         # this generates the entire Phrase object and assigns it to Game property
         self.active_phrase = Phrase(self.get_random_phrase())
@@ -52,25 +57,28 @@ class Game:
         user_guess = input("Enter a letter to guess: ")
         if len(user_guess) >1:
             print("This guess is not valid. Please guess one character at a time.")
+            self.get_guess() #Keep asking for more guesses
         else:
             self.guesses.append(user_guess)
             #self.active_phrase.check_complete(0)
             self.active_phrase.display(user_guess)
             # Check the correct guess flag to see whether to increment the error counter
             if self.active_phrase.correct_guess != True:
-                self.missed +=1
-                print(self.missed)
+                # if user has lives remaining
+                if self.missed > 1:
+                    self.missed = self.missed - 1
+                    print(f"Sorry, incorrect guess! You have {self.missed} of 5 lives remaining.")
+                # If user is out of lives
+                else:
+                    self.game_over()
             self.get_guess() #Keep asking for more guesses
             
 
-        
-            
-        
 
+    def error_handling(user_input):
         
-
-    
+        pass  
 
     def game_over(self):
-        pass
-
+        print("Sorry, you lose")
+        sys.exit()
