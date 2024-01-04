@@ -54,11 +54,15 @@ class Game:
 
 
     def get_guess(self):
-        user_guess = input("Enter a letter to guess: ")
         
-        if len(user_guess) >1:
+        user_guess = input("Enter a letter to guess: ")
+        if user_guess.isalpha() == False:
+            print("This game accepts letters only. Please try again.")
+            self.get_guess() #Keep asking for more guesses
+        elif len(user_guess) > 1:
             print("This guess is not valid. Please guess one character at a time.")
             self.get_guess() #Keep asking for more guesses
+        
         else:
             self.guesses.append(user_guess)
             total_guesses = self.guesses
@@ -88,5 +92,4 @@ class Game:
         pass  
 
     def game_over(self):
-        
         sys.exit()
