@@ -7,8 +7,13 @@ class Phrase:
     def __init__(self, phrase):
         self.phrase = phrase.lower()
         self.initial_phrase = self.initial_display()
-        self.correct_guess = None
-        self.winner = False
+        self.correct_guess = False
+        #Put all characters contained in a string into a set
+        self.phrase_set_of_characters = set(self.phrase) 
+        # remove the spaces from the set
+        self.phrase_set_of_characters.remove(" ")
+        
+        #print(self.phrase_set_of_characters)
 
     def initial_display(self):
         # The first time we load the app, set up all the booleans on letters
@@ -46,35 +51,39 @@ class Phrase:
        
 
     def check_letter(self, phrase, guess):
-        winner = False
+        # Reset the correct guess flag to be False until it gets switched to true
         self.correct_guess = False
+        
         for x in phrase:
             # If the guess is in the word, set its value to true    
             if guess in x:
                 x[guess] = True
                 self.correct_guess = True
-        if self.check_complete(phrase) == True:
-            print("Winner")
-            return phrase
-        else:
-            print("non win")
-            return phrase
-    
+
+        return phrase
         #if all values are set to true (or none are false), the person wins
 
 
     
-    def check_complete(self, word):
-        chosen_characters = []
-       
-        for x in word:
-            for y,z in x.items():
-                chosen_characters.append(z)
-        
-        if False not in chosen_characters:
+    def check_complete(self, total_user_guesses):
+        # Remove spaces from the original phrase and turn it into a set of letters
+        original_phrase = set(self.phrase.replace(" ", ""))
+        # turn the list of user guesses into a set
+        guessed_letters =set(total_user_guesses)
+        # remove any guessed letters from original set
+        remaining_letters = original_phrase.difference(guessed_letters)
+        # When no letters remain, phrase has been guessed
+        if bool(remaining_letters) == False:
             return True
-                
-           
-            # if no letters have a value of false, tell them they won by setting winner to false
-        
-    
+
+
+       # get all guessed
+       
+       # chosen_characters = []
+       #
+       # for x in word:
+       #     for y,z in x.items():
+       #         chosen_characters.append(z)
+       # 
+       # if False not in chosen_characters:
+       #     return True

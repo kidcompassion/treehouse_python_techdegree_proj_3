@@ -55,14 +55,20 @@ class Game:
 
     def get_guess(self):
         user_guess = input("Enter a letter to guess: ")
+        
         if len(user_guess) >1:
             print("This guess is not valid. Please guess one character at a time.")
             self.get_guess() #Keep asking for more guesses
         else:
             self.guesses.append(user_guess)
-            #self.active_phrase.check_complete(0)
+            total_guesses = self.guesses
+           
+            
             self.active_phrase.display(user_guess)
             # Check the correct guess flag to see whether to increment the error counter
+            if self.active_phrase.check_complete(total_guesses) == True:
+                print("You win! Great job!")
+                self.game_over()
             if self.active_phrase.correct_guess != True:
                 # if user has lives remaining
                 if self.missed > 1:
@@ -70,7 +76,9 @@ class Game:
                     print(f"Sorry, incorrect guess! You have {self.missed} of 5 lives remaining.")
                 # If user is out of lives
                 else:
+                    print("Sorry, you lose")
                     self.game_over()
+            
             self.get_guess() #Keep asking for more guesses
             
 
@@ -80,5 +88,5 @@ class Game:
         pass  
 
     def game_over(self):
-        print("Sorry, you lose")
+        
         sys.exit()
