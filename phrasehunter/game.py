@@ -25,7 +25,8 @@ class Game:
         # this generates the entire Phrase object and assigns it to Game property
         self.active_phrase = Phrase(self.get_random_phrase())
         self.guesses = []
-        
+        self.new_game = True
+        self.start()
     
     
     def start(self):
@@ -40,7 +41,8 @@ class Game:
 
 
     def welcome(self):
-        welcome_msg = "==============================\n"
+        welcome_msg =  "\n"
+        welcome_msg += "==============================\n"
         welcome_msg += "  Welcome to Phrase Hunter\n"
         welcome_msg += "==============================\n"
         print(welcome_msg)
@@ -72,7 +74,7 @@ class Game:
             # Check the correct guess flag to see whether to increment the error counter
             if self.active_phrase.check_complete(total_guesses) == True:
                 print("You win! Great job!")
-                self.game_over()
+                self.play_again()
             if self.active_phrase.correct_guess != True:
                 # if user has lives remaining
                 if self.missed > 1:
@@ -81,15 +83,29 @@ class Game:
                 # If user is out of lives
                 else:
                     print("Sorry, you lose")
-                    self.game_over()
-            
+                    self.play_again()
+                    
+
             self.get_guess() #Keep asking for more guesses
             
 
 
     def error_handling(user_input):
-        
         pass  
 
+    def play_again(self):
+        restart = input("Would you like to play again? (Y/N)").lower()
+        if restart == "y":
+            self.__init__()
+        elif restart == "n":
+            self.game_over()
+        else:
+            print("That entry is invalid")
+            self.play_again()
+
+    
+
+
     def game_over(self):
+        print("Thanks for playing!")
         sys.exit()
