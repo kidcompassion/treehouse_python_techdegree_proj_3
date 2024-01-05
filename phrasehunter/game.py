@@ -1,21 +1,6 @@
-# Create your Game class logic in here.
 import random
 import sys
 from .phrase import Phrase
-
-#init 
-# get phrase (Game)
-# assign default booleans to phrase (phrase)
-#get user input (game)
-# check if it matches phrase (phrase)
-#update phrase (phrase)
-#retrigger the get user input (Game)
-
-
-#handle when someone repeats the same letter
-# handle when smeone puts in a number
-# handle if someone submits an empty string
-
 
 class Game:
 
@@ -39,7 +24,6 @@ class Game:
         return self.phrases[randomizer]
         
 
-
     def welcome(self):
         welcome_msg =  "\n"
         welcome_msg += "==============================\n"
@@ -50,62 +34,60 @@ class Game:
         self.active_phrase.initial_display()
         self.get_guess()
         
-        
-
-
-
 
     def get_guess(self):
-        
-        user_guess = input("Enter a letter to guess: ")
+        user_guess = input("Enter a letter to guess: ").upper()
+        # Error handling
+
+        # Is the input a letter? If not, give an error
         if user_guess.isalpha() == False:
-            print("This game accepts letters only. Please try again.")
-            self.get_guess() #Keep asking for more guesses
+            print("\nThis game accepts letters only. Please try again.\n ")
+            self.get_guess() # Keep asking for more guesses
+        # Is the input longer than 1 character? If so, give an error
         elif len(user_guess) > 1:
-            print("This guess is not valid. Please guess one character at a time.")
-            self.get_guess() #Keep asking for more guesses
-        
+            print("\nThis guess is not valid. Please guess one character at a time. \n")
+            self.get_guess() # Keep asking for more guesses
         else:
+            # If the input is valid, add it to the list of guessed characters
             self.guesses.append(user_guess)
-            total_guesses = self.guesses
-           
-            
+            #total_guesses = self.guesses
             self.active_phrase.display(user_guess)
-            # Check the correct guess flag to see whether to increment the error counter
-            if self.active_phrase.check_complete(total_guesses) == True:
-                print("You win! Great job!")
+           
+           
+            if self.active_phrase.check_complete(self.guesses) == True:
+                print("\nYou win! Great job! \n")
                 self.play_again()
-            if self.active_phrase.correct_guess != True:
+            # Check whether guess is wrong, but hasn't already been guessed
+            if (self.active_phrase.correct_guess != True) and (self.active_phrase.already_guessed == False):
                 # if user has lives remaining
                 if self.missed > 1:
                     self.missed = self.missed - 1
-                    print(f"Sorry, incorrect guess! You have {self.missed} of 5 lives remaining.")
+                    print(f"\nSorry, incorrect guess! You have {self.missed} of 5 lives remaining.\n")
                 # If user is out of lives
                 else:
-                    print("Sorry, you lose")
+                    print("\nSorry, you lose\n")
                     self.play_again()
-                    
-
+            # Check whether guess is wrong, but HAS already been guessed (this shouldn't cost them a life)
+            if (self.active_phrase.correct_guess != True) and (self.active_phrase.already_guessed == True):
+                print("\nUh oh, you already guessed that - try again! \n")        
+            
             self.get_guess() #Keep asking for more guesses
             
 
-
-    def error_handling(user_input):
-        pass  
-
     def play_again(self):
-        restart = input("Would you like to play again? (Y/N)").lower()
+        restart = input("Would you like to play again? (Y/N) ").lower()
         if restart == "y":
+            # Instantiate a new game
             self.__init__()
         elif restart == "n":
+            # Leave game
             self.game_over()
         else:
-            print("That entry is invalid")
+            # If entry is not valid, run the question again
+            print("/n That entry is invalid /n")
             self.play_again()
-
-    
 
 
     def game_over(self):
-        print("Thanks for playing!")
+        print("/n Thanks for playing! /n")
         sys.exit()
