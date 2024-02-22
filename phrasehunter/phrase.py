@@ -26,6 +26,7 @@ class Phrase():
             for index in indexes:
                 self.hidden_phrase[index] = user_guess
             print(self.hidden_phrase)
+            self.check_complete()
             return True
         else:
             # Bubble up the error so Game can track missed guesses
@@ -40,7 +41,8 @@ class Phrase():
             
 
     def check_complete(self):
-        if self.phrase == self.hidden_phrase:
+        print(self.phrase)
+        if self.phrase == "".join(self.hidden_phrase):
             print("complete")
 
 
