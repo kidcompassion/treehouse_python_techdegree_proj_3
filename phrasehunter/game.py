@@ -14,7 +14,7 @@ class Game():
             Phrase("Hello Sailor")
         ]
         self.active_phrase = self.get_random_phrase()
-        self.guesses = 0
+        self.guesses = []
     
     def start(self):
         print(self.phrases)
@@ -32,9 +32,21 @@ class Game():
         self.get_guess()
 
     def get_guess(self):
-        self.guesses = input("What letter would you like to guess?")
-        self.active_phrase.check_letter(self.guesses)
-        self.get_guess()
+        user_guess = input("What letter would you like to guess?")
+        if self.active_phrase.check_letter(user_guess) == False:
+            self.guesses.append(user_guess)
+            print("wrong")
+            self.missed += 1
+            print(self.missed)
+        else:
+            self.guesses.append(user_guess)
+        
+        if self.missed >= 5:
+            print("sorry you lose")
+        else:
+            self.get_guess()
+
+        
 
     def game_over():
         pass
