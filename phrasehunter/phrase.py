@@ -3,15 +3,17 @@ class Phrase():
     def __init__(self, phrase):
         self.phrase = phrase.lower()
         self.hidden_phrase = []
-        #self.display()
+        
 
 
     def display(self):
+        self.hidden_phrase = []
         for x in self.phrase:
             if x != " ":
                 self.hidden_phrase.append("_")
             else:
                 self.hidden_phrase.append(" ")
+        #print("phrase display")
         return "".join(self.hidden_phrase)
        
      # pass user guess
@@ -24,6 +26,7 @@ class Phrase():
                 self.hidden_phrase[index] = user_guess
             print("".join(self.hidden_phrase))
             self.check_complete()
+            #print("phrase check letter")
             return True
         else:
             # Bubble up the error so Game can track missed guesses
@@ -31,6 +34,7 @@ class Phrase():
 
     def check_complete(self):
         if self.phrase == "".join(self.hidden_phrase):
+            #print("check complete")
             return True
 
 
