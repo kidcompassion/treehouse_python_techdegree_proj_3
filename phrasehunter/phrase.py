@@ -12,37 +12,25 @@ class Phrase():
                 self.hidden_phrase.append("_")
             else:
                 self.hidden_phrase.append(" ")
-
-        return self.hidden_phrase
+        return "".join(self.hidden_phrase)
        
      # pass user guess
     def check_letter(self, user_guess):
-        #self.display()
-        wrong_guess = False
         if user_guess in self.phrase:  
-            # get its index
+            # If guess is in string, get every instance of its index
             # https://stackoverflow.com/questions/176918/how-to-find-the-index-for-a-given-item-in-a-list
             indexes = [i for i, letter in enumerate(self.phrase) if letter == user_guess]
             for index in indexes:
                 self.hidden_phrase[index] = user_guess
-            print(self.hidden_phrase)
+            print("".join(self.hidden_phrase))
             self.check_complete()
             return True
         else:
             # Bubble up the error so Game can track missed guesses
-            return False
-            
-            
-            # increment wrong guess
-            
-
-            
-
-            
+            return False       
 
     def check_complete(self):
-        print(self.phrase)
         if self.phrase == "".join(self.hidden_phrase):
-            print("complete")
+            return True
 
 
