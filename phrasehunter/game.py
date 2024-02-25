@@ -50,7 +50,6 @@ class Game():
             self.get_guess()
 
 
-
         # INPUT ERROR HANDLING
         # If user enters more than one letter
         if len(user_guess) > 1:

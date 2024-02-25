@@ -18,8 +18,6 @@ class Phrase():
        
     
     def check_letter(self, user_guess):
-
-        
         # If user guess is correct...
         if user_guess in self.phrase: 
 
