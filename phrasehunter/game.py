@@ -22,7 +22,6 @@ class Game():
 
     def get_random_phrase(self):
         random_index = random.randrange(0,5)
-        #print(random_index)
         self.active_phrase = self.phrases[random_index]
         return self.active_phrase
         
@@ -33,23 +32,42 @@ class Game():
         print("\n Here's your phrase to guess: \n")
         print(self.active_phrase.display())
         print("\n")
-        #print("game welcome")
         self.get_guess()
 
     def get_guess(self):
+        input_error = False
 
         if self.active_phrase.check_complete() == True:
             print("You won, great job!")
             self.game_over()
-            
-            
-        user_guess = input("What letter would you like to guess?")
-        if self.active_phrase.check_letter(user_guess) == False:
-            #print("get guess")
+             
+        user_guess = input("What letter would you like to guess? ")
+
+        if len(user_guess) > 1:
+            print("\n/** Error: One character only, please! **/\n")
+            input_error = True
+            #user_guess
+
+        if user_guess.isdigit() == True:
+            print("\n/** Error: Enter letters only, please! **/\n")  
+            input_error = True
+            #user_guess 
+        
+        if user_guess == "":
+            print("\n /** Enter a guess, please! **/ \n")
+            input_error = True
+            #user_guess
+
+        if user_guess == " ":
+            print("\n /** Enter letters only, please! **/ \n")
+            input_error = True
+            #user_guess     
+    
+
+        if self.active_phrase.check_letter(user_guess) == False and input_error == False:
             self.guesses.append(user_guess)
             self.missed += 1
-            print("Whoops, you have " + str(self.missed) + " incorrect guesses.")
-            print(self.missed)
+            print("\nWhoops, you have " + str(self.missed) + " incorrect guesses.\n")
         else:
             self.guesses.append(user_guess)
         

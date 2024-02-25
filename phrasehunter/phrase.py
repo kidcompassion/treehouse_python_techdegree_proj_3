@@ -13,7 +13,6 @@ class Phrase():
                 self.hidden_phrase.append("_")
             else:
                 self.hidden_phrase.append(" ")
-        #print("phrase display")
         return "".join(self.hidden_phrase)
        
      # pass user guess
