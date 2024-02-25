@@ -45,6 +45,12 @@ class Game():
         # Ask for user guess 
         user_guess = input("What letter would you like to guess? ")
 
+        if user_guess in self.guesses:
+            print("\n/** Error: You guessed this already! **/\n")
+            self.get_guess()
+
+
+
         # INPUT ERROR HANDLING
         # If user enters more than one letter
         if len(user_guess) > 1:

@@ -18,8 +18,11 @@ class Phrase():
        
     
     def check_letter(self, user_guess):
+
+        
         # If user guess is correct...
-        if user_guess in self.phrase:  
+        if user_guess in self.phrase: 
+
             # If guess is in string, get every instance of its index
             # https://stackoverflow.com/questions/176918/how-to-find-the-index-for-a-given-item-in-a-list
             
