@@ -6,6 +6,7 @@ import sys
 class Game():
     def __init__(self):
         self.missed = 0
+        self.guesses_remaining = 5
         self.phrases = [
             Phrase("All aboard"),
             Phrase("Swab the decks"),
@@ -73,9 +74,10 @@ class Game():
     
         # If guess is wrong AND there is no input error, increment error cunter
         if self.active_phrase.check_letter(user_guess) == False and input_error == False:
-            self.guesses.append(user_guess)
+            self.guesses.append(user_guess.lower())
             self.missed += 1
-            print("\nWhoops, you have " + str(self.missed) + " incorrect guesses.\n")
+            self.guesses_remaining = 5-  self.missed
+            print("\nWhoops, you have " + str(self.missed) + " incorrect guesses. You have " + str(self.guesses_remaining) + " attempts remaining.\n")
         else:
             # If guess is correct, just add guessed letter to list
             self.guesses.append(user_guess)
